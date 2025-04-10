@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+      background-color: #f4f4f4;
+      font-family: "Segoe UI", sans-serif;
+      padding: 20px;
+    }
+  
+    .language-container {
+      margin-bottom: 30px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  
+    .language-container button {
+      width: 100px;
+      height: 40px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      background-color: #000000;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+  
+    .language-container button:hover {
+      background-color: #333f33;
+    }
+  
+    .movie-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+  
+    .movies {
+      width: 280px;
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+  
+    .movies:hover {
+      transform: translateY(-5px);
+    }
+  
+    .movies img.poster {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-bottom: 1px solid #ccc;
+    }
+  
+    .movies h2 {
+      font-size: 18px;
+      margin: 10px;
+      color: #333;
+    }
+  
+    .movies p {
+      font-size: 14px;
+      margin: 0 10px 10px;
+      color: #555;
+      line-height: 1.4;
+    }
+  
+    .movies p strong {
+      color: #111;
+    }
+  </style>
+  
+  <body>
+   <div class="main">
+    <div class="language-container">
+      <button onclick="getMovies('en')">English</button>
+      <button onclick="getMovies('hi')">Hindi</button>
+      <button onclick="getMovies('ja')">Japanese</button>
+      <button onclick="getMovies('ko')">Korean</button>
+      <button onclick="getMovies('fr')">French</button>
+      <button onclick="getMovies('es')">Spanish</button>
+      <button onclick="getMovies('de')">German</button>
+      <button onclick="getMovies('ta')">Tamil</button>
+      <button onclick="getMovies('ml')">Malayalam</button>
+      <button onclick="getMovies('kn')">Kannada</button>
+      <button onclick="getMovies('mr')">Marathi</button>
+      <button onclick="getMovies('bn')">Bengali</button>
+      <button onclick="getMovies('pa')">Punjabi</button>
+      <button onclick="getMovies('gu')">Gujarati</button>
+      <button onclick="getMovies('or')">Odia</button>
+      <button onclick="getMovies('ur')">Urdu</button>
+      <button onclick="getMovies('te')">Telugu</button>
+      <button onclick="getMovies('as')">Assamese</button>
+    </div>
+    <div class="default-movies">
+      
+    </div>
+    <div class="movie-container"></div>
+   </div>
+
+    <script src="./language.js"></script>
+  </body>
+</html>

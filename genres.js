@@ -29,7 +29,7 @@ addEventListener("DOMContentLoaded", async () => {
         "click",
         async function fetchingMovieByGenre() {
           const moviesByGenereResponse = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${ele.id}&page=1`
+            `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${ele.id}&page=5`
           );
 
           const moviesByGenereData = await moviesByGenereResponse.json();
@@ -47,7 +47,7 @@ function displayFunction(data) {
   data.forEach((ele) => {
     const genereMovies = document.createElement("div");
     genereMovies.className = "genereMovies";
-    genereMovies.innerHTML = `
+    genereMovies.innerHTML += `
          <img class="imgs" src="https://image.tmdb.org/t/p/w500/${
            ele.poster_path
          }" alt="imgs">
