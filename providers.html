@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
+        const Api_Url=`https://api.themoviedb.org/3/movie/9883/watch/providers?api_key=${API_KEY}
+`
+        addEventListener("DOMContentLoaded",async ()=>{
+            const res=await fetch(Api_Url);
+            const data=await res.json()
+
+            console.log(data)
+        })
+    </script>
+</body>
+</html>

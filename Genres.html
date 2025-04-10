@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0d0d0d;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #ffcc00;
+    }
+
+    .main {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .geners-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+    .genres {
+      margin-bottom: 20px;
+     
+    }
+
+    .genres button {
+      padding: 10px 15px;
+      background-color: #1f1f1f;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .genres button:hover {
+      background-color: #ffcc00;
+      color: #000;
+      border-color: #ffcc00;
+    }
+
+    .genereMovies-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+    }
+    .genereMovies {
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .genereMovies img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .genereMovies p {
+      font-size: 18px;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    .genereMovies span {
+      display: block;
+      margin: 5px 0;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .age-badge {
+      font-weight: bold;
+      color: #ff5050;
+    }
+
+    .now-more-btn,
+    .add-watch-list {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 90%;
+      margin-bottom: 5px;
+    }
+
+    .now-more-btn:hover,
+    .add-watch-list:hover {
+      background-color: #ffcc00;
+      color: #000;
+    }
+  </style>
+
+  <body>
+
+    <h1>Genres</h1>
+    <div class="main">
+        <div class="geners-container">
+
+        </div>
+        <div class="genereMovies-container">
+
+        </div>
+    </div>
+  </body>
+  <script>
+    const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
+    const apiUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US&page=1`;
+
+    const mainDiv = document.querySelector(".main");
+
+    addEventListener("DOMContentLoaded", async () => {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      console.log(data);
+
+      data.genres.forEach((ele) => {
+        console.log(ele.id);
+        const genreDiv = document.createElement("div");
+        genreDiv.className = "genres";
+
+        genreDiv.innerHTML = `
+                <button class="genre-btn">${ele.name}</button>
+                
+            `;
+        document.querySelector(".geners-container").append(genreDiv);
+
+        const genereBtn = genreDiv.querySelectorAll(".genre-btn");
+        genereBtn.forEach((movie) => {
+          const genreId = movie.id;
+          console.log(genreId);
+
+          movie.addEventListener(
+            "click",
+            async function fetchingMovieByGenre() {
+              const moviesByGenereResponse = await fetch(
+                `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${ele.id}&page=1`
+              );
+
+              const moviesByGenereData = await moviesByGenereResponse.json();
+
+              console.log(moviesByGenereData);
+              document.querySelectorAll(".genereMovies").forEach(ele=>ele.remove())
+              displayFunction(moviesByGenereData.results);
+            }
+          );
+        });
+      });
+    });
+
+    function displayFunction(data) {
+      data.forEach((ele) => {
+        const genereMovies = document.createElement("div");
+        genereMovies.className = "genereMovies";
+        genereMovies.innerHTML = `
+             <img class="imgs" src="https://image.tmdb.org/t/p/w500/${
+               ele.poster_path
+             }" alt="imgs">
+                 <p>${ele.title}</p>
+                 <span>Relase Date: ${ele.release_date}</span>
+                     <span class="age-badge">${
+                       ele.adult ? "18+ 🔞" : "All Ages"
+                     }</span>
+                <button class="now-more-btn">Know More</button>
+                <button class="add-watch-list">Add To Watchlist</button>
+            
+        `;
+        document.querySelector(".genereMovies-container").append(genereMovies);
+      });
+    }
+  </script>
+</html>
