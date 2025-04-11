@@ -1,24 +1,26 @@
-let page=5;
 
-document.getElementById("next").addEventListener("click",()=>{
-    page++;
-    console.log(page)
-})
 
+let currentPage=1;
+let totalPage;
 const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
-const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&$page=2`;
-
 const mainDiv = document.querySelector(".main");
 const inputData = document.getElementById("input");
 
-//Main Page It will Display At Time Of Document
-addEventListener("DOMContentLoaded", async (page) => {
+
+const mainPageDomLoaded=async (page) => {
+  const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
   const response = await fetch(apiUrl);
   const data = await response.json();
- 
+ console.log(data)
+ console.log(data.total_results)
+ totalPage=data.total_results;
+ console.log(totalPage)
   searchMoviesByTitle(data.results);
   displayFunction(data.results);
-});
+}
+//Main Page It will Display At Time Of Document
+
+addEventListener("DOMContentLoaded",mainPageDomLoaded() );
 
 function searchMoviesByTitle(data) {
   inputData.onkeyup = () => {
@@ -59,8 +61,10 @@ function displayFunction(data) {
   });
  
 }
-const searchBtn=document.getElementById("search-btn");
 
+
+
+const searchBtn=document.getElementById("search-btn");
 searchBtn.addEventListener("click",async ()=>{
   const movieTitle=inputData.value;
    const searchByMovieNameApiUrl=`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(movieTitle)}`;
@@ -68,9 +72,26 @@ searchBtn.addEventListener("click",async ()=>{
    const response=await fetch(searchByMovieNameApiUrl);
    const data=await response.json();
 
-   console.log(data.results)
+   console.log(data)
 
    if(data.results)
    displayFunction(data.results)
+
+})
+
+
+document.getElementById("next").addEventListener("click",()=>{
+  if(currentPage<= totalPage){
+  currentPage++;}
+  mainPageDomLoaded();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("prev").addEventListener("click",()=>{
+  if(currentPage>1){
+    currentPage--;
+    mainPageDomLoaded();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
 })

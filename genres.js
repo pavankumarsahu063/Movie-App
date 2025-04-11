@@ -1,5 +1,8 @@
 const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
-const apiUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US&page=1`;
+let cuurentPage=1;
+let lastPage;
+
+const apiUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US&page=${cuurentPage}`;
 
 const mainDiv = document.querySelector(".main");
 
@@ -7,10 +10,10 @@ addEventListener("DOMContentLoaded", async () => {
   const response = await fetch(apiUrl);
   const data = await response.json();
 
-  console.log(data);
+  // console.log(data);
 
   data.genres.forEach((ele) => {
-    console.log(ele.id);
+    // console.log(ele.id);
     const genreDiv = document.createElement("div");
     genreDiv.className = "genres";
 
@@ -24,6 +27,7 @@ addEventListener("DOMContentLoaded", async () => {
     genereBtn.forEach((movie) => {
       const genreId = movie.id;
       console.log(genreId);
+      
 
       movie.addEventListener(
         "click",
@@ -33,8 +37,9 @@ addEventListener("DOMContentLoaded", async () => {
           );
 
           const moviesByGenereData = await moviesByGenereResponse.json();
-
-          console.log(moviesByGenereData);
+          totalPage=moviesByGenereData.total_pages;
+          // console.log(moviesByGenereData);
+          console.log(totalPage)
           document.querySelectorAll(".genereMovies").forEach(ele=>ele.remove())
           displayFunction(moviesByGenereData.results);
         }
@@ -62,4 +67,30 @@ function displayFunction(data) {
     `;
     document.querySelector(".genereMovies-container").append(genereMovies);
   });
+  const previousBtn=document.createElement("button");
+  previousBtn.textContent="Prev"
+  previousBtn.id="prev";
+  const nextBtn=document.createElement("button");
+  nextBtn.textContent="next"
+  nextBtn.id="next";
+
+  mainDiv.append(previousBtn,nextBtn)
+
 }
+
+
+document.getElementById("next").addEventListener("click",()=>{
+  if(currentPage<= totalPage){
+  currentPage++;}
+  mainPageDomLoaded();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("prev").addEventListener("click",()=>{
+  if(currentPage>1){
+    currentPage--;
+    mainPageDomLoaded();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+})
