@@ -1,20 +1,21 @@
-const page=1;
+let page=5;
 
 document.getElementById("next").addEventListener("click",()=>{
     page++;
+    console.log(page)
 })
 
 const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
-const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&${page}=1`;
+const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&$page=2`;
 
 const mainDiv = document.querySelector(".main");
 const inputData = document.getElementById("input");
 
 //Main Page It will Display At Time Of Document
-addEventListener("DOMContentLoaded", async () => {
+addEventListener("DOMContentLoaded", async (page) => {
   const response = await fetch(apiUrl);
   const data = await response.json();
-  <!-- console.log(data.results) -->
+ 
   searchMoviesByTitle(data.results);
   displayFunction(data.results);
 });

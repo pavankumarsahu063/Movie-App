@@ -139,3 +139,53 @@
     height: 100px;
     background-color: red;
   }
+
+
+
+  @media (max-width: 600px) {
+
+  .header{
+    width: 100%;
+    height: 100px;
+    /* background-color: red; */
+    display: block;
+  }
+  .navbar ul{
+    display: none;
+  }
+  .search-bar input{
+    width: 170px;
+    margin-top: 15px;
+    margin-left: 10px;
+    padding: 7px 0;
+}
+.logo h1{
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  color: brown;
+}
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+  background-color: #121212;
+}
+.movies {
+
+  width: 100px;
+  
+border-radius: 16px;
+overflow: hidden;
+color: #ffffff;
+box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* display: flex; */
+/* flex-direction: column; */
+/* align-items: center; */
+/* padding-bottom: 15px; */
+}
+}
