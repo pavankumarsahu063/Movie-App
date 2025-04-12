@@ -6,6 +6,8 @@ let currentSelectGenre;
 const genereApiUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US&page=1`;
 const mainDiv = document.querySelector(".main");
 
+
+//Function For Fetching The Movies According to the genre
 async function fetchingMovieByGenre(genreId) {
   console.log(`Genre Id In Function ${genreId}`)
   currentSelectGenre=genreId;
@@ -25,39 +27,26 @@ async function fetchingMovieByGenre(genreId) {
 
 } 
 
-//Here i have to change
-document.getElementById("next").addEventListener("click",()=>{
-  if(currentPage<= totalPage){
-  currentPage++;}
-  fetchingMovieByGenre(currentSelectGenre);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
 
-
+// Function for display akk the genre 
 addEventListener("DOMContentLoaded", async () => {
   const response = await fetch(genereApiUrl);
   const data = await response.json();
-
-  // console.log(data);
-
+  // console.log(data)
   data.genres.forEach((ele) => {
     // console.log(ele.id);
     genreId=ele.id;
     const genreDiv = document.createElement("div");
     genreDiv.className = "genres";
-
     genreDiv.innerHTML = `
             <button class="genre-btn">${ele.name}</button>
             
         `;
     document.querySelector(".geners-container").append(genreDiv);
-
     const genereBtn = genreDiv.querySelectorAll(".genre-btn");
     genereBtn.forEach((movie) => {
       // const genreId = movie.id;
       // console.log(genreId);
-      
-
       movie.addEventListener(
         "click",()=> {
           currentPage=1;
@@ -68,6 +57,7 @@ addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+//Function for displaying Movies
 function displayFunction(data) {
   data.forEach((ele) => {
     const genereMovies = document.createElement("div");
@@ -90,3 +80,19 @@ function displayFunction(data) {
  
 
 }
+
+//Paging
+document.getElementById("next").addEventListener("click",()=>{
+  if(currentPage<= totalPage){
+  currentPage++;}
+  fetchingMovieByGenre(currentSelectGenre);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.getElementById("prev").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchingMovieByGenre(currentSelectGenre);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});

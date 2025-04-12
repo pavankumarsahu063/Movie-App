@@ -10,6 +10,7 @@ async function getMovies(languageCode) {
     const movies = document.createElement("div");
     movies.className = "movies";
     movies.innerHTML += `
+          
            <img class="poster" src="https://image.tmdb.org/t/p/w500${
              movie.poster_path
            }" alt="${movie.title}" />
@@ -17,7 +18,7 @@ async function getMovies(languageCode) {
 <p><strong>Original Title:</strong> ${movie.original_title}</p>
 <p><strong>Language:</strong> ${movie.original_language.toUpperCase()}</p>
 <p><strong>Release Date:</strong> ${movie.release_date}</p>
-<p><strong>Rating:</strong> ⭐ ${movie.vote_average}</p>
+<p><strong>Rating:</strong> ⭐ ${Math.floor(movie.vote_average*10)/10}</p>
 <p>${movie.overview}</p>
           
           `;

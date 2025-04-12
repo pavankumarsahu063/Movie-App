@@ -21,16 +21,13 @@ const mainPageDomLoaded=async (page) => {
 //Main Page It will Display At Time Of Document
 
 addEventListener("DOMContentLoaded",mainPageDomLoaded() );
-
 function searchMoviesByTitle(data) {
   inputData.onkeyup = () => {
     const filterMovie = data.filter((movie) =>
       movie.title.toLowerCase().includes(inputData.value)
     );
     console.log(filterMovie);
-    
     displayFunction(filterMovie);
-
   };
 }
 
@@ -40,7 +37,7 @@ function displayFunction(data) {
     const moviesDiv = document.createElement("div");
     moviesDiv.className = "movies";
 //    <!-- console.log(ele) -->
-
+// localStorage.setItem("moviId",ele.id)
     moviesDiv.innerHTML = `
             <img class="imgs" src="https://image.tmdb.org/t/p/w500/${
               ele.poster_path
@@ -50,16 +47,14 @@ function displayFunction(data) {
                  <span class="age-badge">${
                    ele.adult ? "18+ 🔞" : "All Ages"
                  }</span>
+                 <span class="papularity">Rating: ⭐${Math.floor(ele.vote_average*10)/10}</span>
             <button class="now-more-btn">Know More</button>
             <button class="add-watch-list">Add To Watchlist</button>
         `;
-
     mainDiv.append(moviesDiv);
 
 
-  
   });
- 
 }
 
 
@@ -68,16 +63,14 @@ const searchBtn=document.getElementById("search-btn");
 searchBtn.addEventListener("click",async ()=>{
   const movieTitle=inputData.value;
    const searchByMovieNameApiUrl=`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(movieTitle)}`;
-
    const response=await fetch(searchByMovieNameApiUrl);
    const data=await response.json();
-
    console.log(data)
-
    if(data.results)
    displayFunction(data.results)
-
 })
+
+
 
 
 document.getElementById("next").addEventListener("click",()=>{
