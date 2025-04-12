@@ -58,7 +58,7 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      
+
       gap: 50px;
   }
   .genereMovies {
@@ -113,4 +113,25 @@
   .add-watch-list:hover {
     background-color: #ffcc00;
     color: #000;
+  }
+
+  .btn{
+    margin: 0 auto;
+    display: none;
+  }
+  .btn button{
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #333;
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
+
+  .btn button:hover{
+    background-color: #ffcc00;
+    color: #000;
+    transition: all 0.3s ease-in-out;
+   
+
   }
