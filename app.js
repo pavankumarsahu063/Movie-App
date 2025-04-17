@@ -12,11 +12,6 @@ const mainPageDomLoaded=async (page) => {
   const response = await fetch(apiUrl);
   const data = await response.json();
  console.log(data)
-//  const filteredResults = data.results.map(each => ({
-//   backdropPath:each.backdrop_path,
-//   genreId:each.genre_ids
-//  })) 
- console.log(filteredResults)
  console.log(data.total_results)
  totalPage=data.total_results;
  console.log(totalPage)
