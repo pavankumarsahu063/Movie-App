@@ -1,5 +1,3 @@
-
-
 let currentPage=1;
 let totalPage;
 const API_KEY = "ebf33f183e050fdb06ee9f02b2aaf83d";
@@ -11,10 +9,10 @@ const mainPageDomLoaded=async (page) => {
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
   const response = await fetch(apiUrl);
   const data = await response.json();
- console.log(data)
- console.log(data.total_results)
+//  console.log(data)
+//  console.log(data.total_results)
  totalPage=data.total_results;
- console.log(totalPage)
+//  console.log(totalPage)
   searchMoviesByTitle(data.results);
   displayFunction(data.results);
 }
@@ -36,8 +34,7 @@ function displayFunction(data) {
   data.forEach((ele) => {
     const moviesDiv = document.createElement("div");
     moviesDiv.className = "movies";
-//    <!-- console.log(ele) -->
-// localStorage.setItem("moviId",ele.id)
+
     moviesDiv.innerHTML = `
             <img class="imgs" src="https://image.tmdb.org/t/p/w500/${
               ele.poster_path
@@ -52,12 +49,37 @@ function displayFunction(data) {
             <button class="add-watch-list">Add To Watchlist</button>
         `;
     mainDiv.append(moviesDiv);
+                 
+    const addWatchListBtn= moviesDiv.querySelector(".add-watch-list");   
+    addWatchListBtn.addEventListener("click",()=>{
+      let watchlist=JSON.parse(localStorage.getItem("watchlist")) || [];
+      const exists= watchlist.find(movie=>movie===ele.id);
+      if(!exists){
+        watchlist.push(ele.id);
+        localStorage.setItem("watchlist",JSON.stringify(watchlist));
+        setTimeout(()=>{
+          document.querySelector(".modal").style.display="block";
+        },1000)
+      }
+      else{
+        document.querySelector(".modal-heading").textContent="Opps!"
+        document.querySelector(".message").textContent="This Movie Already In Whislist";
+        document.querySelector(".modal").style.display="block";
+      }
+    })
 
 
   });
 }
 
+//modal 
+window.addEventListener("click",(e)=>{
+  if (e.target ==  document.querySelector(".modal")) {
+    document.querySelector(".modal").style.display = "none";
+  }
+  
 
+})
 
 const searchBtn=document.getElementById("search-btn");
 searchBtn.addEventListener("click",async ()=>{
@@ -77,7 +99,7 @@ document.getElementById("next").addEventListener("click",()=>{
   if(currentPage<= totalPage){
   currentPage++;}
   mainPageDomLoaded();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top:30, behavior: "smooth" });
 });
 
 document.getElementById("prev").addEventListener("click",()=>{
