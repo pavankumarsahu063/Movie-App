@@ -11,10 +11,9 @@ It showcases a sleek front-end interface with features like:
 ---
 
 ## 🌐 Live Demo
+   
+> 🔗    https://pavankumarsahu063.github.io/Movie-App/
 
-> 🔗   
-
----
 
 ## 🚀 Features
 
@@ -42,6 +41,8 @@ It showcases a sleek front-end interface with features like:
 
 1. Clone the repository
 
+https://github.com/pavankumarsahu063/Movie-App
 
+cd Movie-App
 
 
