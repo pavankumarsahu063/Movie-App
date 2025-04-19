@@ -215,11 +215,10 @@
     addEventListener("load", async () => {
       const watchlist = JSON.parse(localStorage.getItem("watchlist"));
       console.log(watchlist);
-      if(watchlist.length==0){
-      
-            document.querySelector(".modal").style.display="block";
-       
-      }
+    
+if (watchlist.length === 0) {
+    document.querySelector(".modal").style.display = "block";
+  }
 
       watchlist.forEach(async (movieId) => {
         const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
