@@ -7,6 +7,10 @@ const inputData = document.getElementById("input");
 
 const mainPageDomLoaded=async (page) => {
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
+
+
+
+  
   const response = await fetch(apiUrl);
   const data = await response.json();
 //  console.log(data)
