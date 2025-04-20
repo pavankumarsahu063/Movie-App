@@ -11,6 +11,7 @@ const mainPageDomLoaded=async (page) => {
   const data = await response.json();
 //  console.log(data)
 //  console.log(data.total_results)
+
  totalPage=data.total_results;
 //  console.log(totalPage)
   searchMoviesByTitle(data.results);
