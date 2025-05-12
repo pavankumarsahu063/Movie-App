@@ -6,6 +6,7 @@ It showcases a sleek front-end interface with features like:
 - 🎥 Movie Listings
 - 🎭 Genres
 - ⭐ Watchlist
+  
 - 🔍 Search Bar
 
 ---
